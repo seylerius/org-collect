@@ -1,36 +1,18 @@
 # org-collect
 
-FIXME: description
+Some folks like using [org files](https://www.orgmode.org) to keep organized, and like to sync this to an android phone for mobile task management. This is complicated when you store your org files in each project directory. This tool solves that problem by syncing each file into a single folder such that syncthing or another such tool can easily sync with your phone. 
 
 ## Installation
 
-Download from http://example.com/FIXME.
+Clone from this git repository and build with `lein uberjar`, or download a jar from the releases list.
 
 ## Usage
 
-FIXME: explanation
-
-    $ java -jar org-collect-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+    $ java -jar org-collect-0.1.0-standalone.jar -t TARGET_DIRECTORY -d DEFAULT_DIRECTORY OTHER1 OTHER2__
 
 ## License
 
-Copyright © 2016 FIXME
+Copyright © 2016 Elliott "Seylerius" Seyler
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
