@@ -17,11 +17,11 @@
     :default "~/notes"
     :parse-fn #(fs/expand-home %)
     :validate [#(fs/exists? %) "Default directory must exist"]]
-   ["-v" "–quietness" "Verbosity level"
+   ["-v" "--verbose" "Verbosity level"
     :id :verbosity
     :default 0
     :assoc-fn (fn [m k _] (update-in m [k] inc))]
-   ["-q" "–-quietness" "Verbosity level"
+   ["-q" "--quiet" "Verbosity level"
     :id :quietness
     :default 0
     :assoc-fn (fn [m k _] (update-in m [k] dec))]
