@@ -25,7 +25,7 @@
     :id :quietness
     :default 0
     :assoc-fn (fn [m k _] (update-in m [k] dec))]
-   ["-h" "–help"]])
+   ["-h" "--help"]])
 
 (defn select-folders
   "Expand a potentially globbed list of folders"
