@@ -22,7 +22,7 @@
     :default 0
     :assoc-fn (fn [m k _] (update-in m [k] inc))]
    ["-q" "nil" "Verbosity level"
-    :id :verbosity
+    :id :quietness
     :default 0
     :assoc-fn (fn [m k _] (update-in m [k] dec))]
    ["-h" "–help"]])
