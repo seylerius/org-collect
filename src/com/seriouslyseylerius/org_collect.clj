@@ -8,10 +8,12 @@
 
 (def cli-options
   [["-t" "–target TARGET" "Target directory"
+    :id :target
     :default "~/orgzly"
     :parse-fn #(fs/expand-home %)
     :validate [#(fs/exists? %) "Target directory must exist"]]
    ["-d" "–default DEFAULT" "Default directory"
+    :id :default
     :default "~/notes"
     :parse-fn #(fs/expand-home %)
     :validate [#(fs/exists? %) "Default directory must exist"]]
@@ -88,5 +90,6 @@
 (defn -main
   "Synchronize org files from specified directories with the target folder."
   [& args]
+  (println args)
   (def cli (parse-opts args cli-options))
   (sync-files (get-org-files (concat [(-> cli :options :default)] (cli :arguments))) (-> cli :options :target) (-> cli :options :default)))
