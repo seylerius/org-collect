@@ -4,7 +4,8 @@
             [planck.shell :refer [sh]]
             [planck.core :refer [exit]]
             [planck.io :as io]
-            [fipp.edn :refer [pprint]]))
+            [fipp.edn :refer [pprint]]
+            [planck.environ :refer [env]]))
 
 (def org-file #"\.org$")
 
@@ -13,7 +14,7 @@
 
 (defn make-pair [target]
   (let [name (last (split target #"/"))
-        syncpoint (str "/home/emhs/orgzly/" name)]
+        syncpoint (str "/home/" (:user env) "/orgzly/" name)]
     [syncpoint target]))
 
 (defn make-printable [[syncpoint target]]
