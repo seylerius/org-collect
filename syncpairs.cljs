@@ -4,7 +4,7 @@
             [clojure.string :refer [split-lines split]]
             [planck.environ :refer [env]]
             [planck.core :refer [slurp]]
-            [planck.io :as io])
+            [planck.io :as io]))
 
 (defn get-sync-pairs []
   (let [pair-file (or (first *command-line-args*) (str "/home/" (:user env) "/.orgsyncpairs"))
@@ -14,11 +14,11 @@
 
 (defn build-sync-command [[one two]]
   (let [comparison (compare (:modified (io/file-attributes one))
-                            (:modified (io/fileattributes two)))]
+                            (:modified (io/file-attributes two)))]
     (cond (= comparison 1) ["rsync" "-t" one two]
           (= comparison -1) ["rsync" "-t" two one])))
 
-(defn -main
-  (println "Stub"))
+(defn -main []
+  (dorun (map (partial apply sh) (map build-sync-command (get-sync-pairs)))))
 
 (set! *main-cli-fn* -main)
