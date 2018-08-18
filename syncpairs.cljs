@@ -15,10 +15,14 @@
 (defn build-sync-command [[one two]]
   (let [comparison (compare (:modified (io/file-attributes one))
                             (:modified (io/file-attributes two)))]
-    (cond (= comparison 1) ["rsync" "-t" one two]
-          (= comparison -1) ["rsync" "-t" two one])))
+    (cond (= comparison 1) [one two]
+          (= comparison -1) [two one])))
+
+(defn sync-pair [[one two]]
+  (println (str "Syncing " one " to " two))
+  (sh "rsync" "-t" one two))
 
 (defn -main []
-  (dorun (map (partial apply sh) (map build-sync-command (get-sync-pairs)))))
+  (dorun (map sync-pair (remove nil? (map build-sync-command (get-sync-pairs))))))
 
 (set! *main-cli-fn* -main)
