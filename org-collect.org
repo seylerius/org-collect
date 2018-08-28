@@ -1,0 +1,10 @@
+#+title: Org-Collect
+#+author: Elliott Seyler / Seth Seylerius
+
+* SyncPairs
+
+* DetectOrgPairs
+
+** TODO Refactor filtering to source from ignore-file
+
+** TODO Fix multi-file scanning
