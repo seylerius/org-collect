@@ -2,7 +2,7 @@
 (ns detectorgpairs.core
   (:require [clojure.string :refer [split-lines split join]]
             [planck.shell :refer [sh]]
-            [planck.core :refer [exit]]
+            [planck.core :refer [exit slurp]]
             [planck.io :as io]
             [fipp.edn :refer [pprint]]
             [planck.environ :refer [env]]))
@@ -25,15 +25,23 @@
         :when (> freq 1)]
     id))
 
+(defn re-drop-matches
+  ([patterns]
+    (remove (fn [str] (some #(re-matches (re-pattern %) str) patterns))))
+  ([patterns strs] 
+    (remove (fn [str] (some #(re-matches (re-pattern %) str) patterns)) strs)))
+
 (defn -main [& args]
   (let [dirs (filter io/directory? (or args *command-line-args*))
         all-files (apply concat (map dir-contents dirs))
         org-files (filter (partial re-find org-file) all-files)
-        filtered-org-files (remove #(re-find #"README|readme|barelabor|opsec/bookmarks|sample|bitmore|SPT-classes" %) org-files)
+        filter-patterns (map re-pattern (split-lines (slurp (str"/home/" (:user env) "/.orgpairignore"))))
+        filtered-org-files (re-drop-matches filter-patterns org-files)
         pairs (map make-pair filtered-org-files)
         syncpoints (map first pairs)
         printable-pairs (map make-printable pairs)
         output (join "\n" printable-pairs)]
+    (pprint filter-patterns)
     (if (not (apply distinct? syncpoints))
       (do
         (println "Filenames must be distinct!")

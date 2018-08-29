@@ -5,7 +5,8 @@
 
 * DetectOrgPairs
 
-** TODO Refactor filtering to source from ignore-file
+** DONE Refactor filtering to source from ignore-file
+CLOSED: [2018-08-29 Wed 02:23]
 
 ** DONE Fix multi-file scanning
 CLOSED: [2018-08-28 Tue 19:55]
